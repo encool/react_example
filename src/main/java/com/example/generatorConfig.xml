@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+  <classPathEntry location="G:\Users\liqiao\.m2\repository\mysql\mysql-connector-java\5.1.38\mysql-connector-java-5.1.38.jar"></classPathEntry>
+  <context id="context1" >
+  
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.3.10:3306/example" userId="root" password="root" />
+    <javaModelGenerator targetPackage="com.example.entity" targetProject="gs-maven-complete" ></javaModelGenerator>
+    <sqlMapGenerator targetPackage="com.example.dao" targetProject="gs-maven-complete" />
+    <javaClientGenerator targetPackage="com.example.client" targetProject="gs-maven-complete" type="XMLMAPPER" ></javaClientGenerator>
+    <table schema="example" tableName="TASK" >
+    <!--   <columnOverride column="???" property="???" /> -->
+    </table>
+  </context>
+</generatorConfiguration>

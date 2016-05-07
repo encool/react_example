@@ -1,0 +1,25 @@
+{
+  "name": "angular2-quickstart",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"npm run tsc:w\" \"npm run lite\" ",
+    "browserify": "browserify -t [ babelify --presets [ react ] ] dev/main.js -o js/bundle.js",
+    "browserifybs": "browserify -t [ babelify --presets [ react ] ] dev/bootstrapmain.js -o js/bundle.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "free-jqgrid": "^4.13.1",
+    "lodash": "^4.9.0",
+    "object-assign": "^4.0.1",
+    "react-resizable": "^1.3.2",
+    "react-router": "^2.0.1"
+  },
+  "devDependencies": {
+    "grunt-browserify": "^5.0.0",
+    "grunt-contrib-concat": "^1.0.0",
+    "grunt-contrib-jshint": "^1.0.0",
+    "jit-grunt": "^0.10.0",
+    "jshint-stylish": "^2.1.0",
+    "time-grunt": "^1.3.0"
+  }
+}
