@@ -26,43 +26,43 @@ function create(item) {
  * Delete a TODO item.
  * @param {string} id
  */
-function destroy(item){
-//	console.log("delete item",item);
-	setRightItem(item);
-	delete items[item.id];
+function destroy(item) {
+  //	console.log("delete item",item);
+  setRightItem(item);
+  delete items[item.id];
 }
 
-function hasItem(item){
-	var result = false;
-	_.map(items,function(it,i){
-		if(it.url==item.url){
-			console.log("iiiii",i);
-			result = true;
-		}
-	});
-	return result;
+function hasItem(item) {
+  var result = false;
+  _.map(items, function(it, i) {
+    if (it.url == item.url) {
+      console.log("iiiii", i);
+      result = true;
+    }
+  });
+  return result;
 }
 
-function setRightItem(item){
-  	var index = undefined;
-  	var leftItem = undefined;
-  	var rightItem = undefined;
-	_.map(items,function(it,i){
-		
-		if(it.url==item.url){
-			index = i;
-		}else{
-			leftItem = it;
-		}		
-		if(index!=undefined&&i==index+1){
-			rightItem = it;
-		}
-	});
-	if(rightItem!=undefined){
-		nextActiveitem = rightItem;
-	}else if(leftItem!=undefined){
-		nextActiveitem = leftItem;
-	}
+function setRightItem(item) {
+  var index = undefined;
+  var leftItem = undefined;
+  var rightItem = undefined;
+  _.map(items, function(it, i) {
+
+    if (it.url == item.url) {
+      index = i;
+    } else {
+      leftItem = it;
+    }
+    if (index != undefined && i == index + 1) {
+      rightItem = it;
+    }
+  });
+  if (rightItem != undefined) {
+    nextActiveitem = rightItem;
+  } else if (leftItem != undefined) {
+    nextActiveitem = leftItem;
+  }
 }
 var MenuStrore = assign({}, EventEmitter.prototype, {
 
@@ -71,11 +71,11 @@ var MenuStrore = assign({}, EventEmitter.prototype, {
    * @return {object}
    */
   getAll: function() {
-//	console.log("get all",items);
+    //	console.log("get all",items);
     return items;
   },
-  getActiveItem:function(){
-	  return nextActiveitem;
+  getActiveItem: function() {
+    return nextActiveitem;
   },
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -98,20 +98,20 @@ var MenuStrore = assign({}, EventEmitter.prototype, {
   dispatcherIndex: AppDispatcher.register(function(payload) {
     var action = payload.action;
     var item = action.item;
-    console.log("payload",payload);
-    switch(action.actionType) {
+    console.log("payload", payload);
+    switch (action.actionType) {
       case MenuConstants.MENU_CLICKED:
-    	console.log("detected click",item);
-        if(!hasItem(item)){
+        console.log("detected click", item);
+        if (!hasItem(item)) {
           create(item);
           MenuStrore.emitChange();
         }
         break;
       case MenuConstants.TAB_XCLICKED:
-    	  destroy(item);
-    	  MenuStrore.emitChange();
-    	  break;
-      // add more cases for other actionTypes, like TODO_UPDATE, etc.
+        destroy(item);
+        MenuStrore.emitChange();
+        break;
+        // add more cases for other actionTypes, like TODO_UPDATE, etc.
     }
 
     return true; // No errors. Needed by promise in Dispatcher.

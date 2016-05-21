@@ -7,27 +7,70 @@ var Link = require('react-router').Link
 var browserHistory = require('react-router').browserHistory
 var Grid = require('./grid.js')
 var MenuItem = require('./components/MenuItem.js')
-
+var ReactForm = require('./components/ReactForm.js')
 var ReactGridLayout = require('react-grid-layout');
 var Table = require('./table.js');
 
 var Tabs = require('./tabs.js');
 
 var AccordionGroup = require('./components/AccordionMenuGroup.js')
-var items = [
-          {i: 'a', x: 0, y: 0, w: 1, h: 1,url:"/about", static: true},
-          {i: 'b', x: 1, y: 0, w: 1, h: 1,url:"/inbox", static: true},
-          {i: 'c', x: 2, y: 0, w: 1, h: 1,url:"/grid",  static: true}
-        ];
+var items = [{
+  i: 'a',
+  x: 0,
+  y: 0,
+  w: 1,
+  h: 1,
+  url: "/about",
+  static: true
+}, {
+  i: 'b',
+  x: 1,
+  y: 0,
+  w: 1,
+  h: 1,
+  url: "/inbox",
+  static: true
+}, {
+  i: 'c',
+  x: 2,
+  y: 0,
+  w: 1,
+  h: 1,
+  url: "/grid",
+  static: true
+}];
 var Grid = React.createClass({
   render: function() {
     // layout is an array of objects, see the demo for more complete usage
-    var layout = [
-      {i: 'Head', x: 0, y: 0, w: 12, h: 2, static: true},
-      {i: 'MenuLeft', x: 0, y: 1, w: 1, h: 10,static: true},
-      {i: 'Tabs', x: 1, y: 1, w: 11, h: 1,static: true},
-      {i: 'Content', x: 1, y: 2, w: 11, h: 12,static: true}
-    ];
+    var layout = [{
+      i: 'Head',
+      x: 0,
+      y: 0,
+      w: 12,
+      h: 2,
+      static: true
+    }, {
+      i: 'MenuLeft',
+      x: 0,
+      y: 1,
+      w: 1,
+      h: 10,
+      static: true
+    }, {
+      i: 'Tabs',
+      x: 1,
+      y: 1,
+      w: 11,
+      h: 1,
+      static: true
+    }, {
+      i: 'Content',
+      x: 1,
+      y: 2,
+      w: 11,
+      h: 12,
+      static: true
+    }];
     var navClass = 'nav nav-tabs';
     return (
       <div className="container-fluid" layout={layout} cols={12} rowHeight={30} width={1200}>
@@ -62,14 +105,10 @@ var handleSubmit = function(event) {
 };
 const About = React.createClass({
   render() {
-    return <div><h3>About</h3><input/>
-	    	  <form onSubmit={handleSubmit}>
-			    <input type="text" placeholder="userName"/> / {' '}
-			    <input type="text" placeholder="repo"/>{' '}
-			    <button type="submit">Go</button>
-			  </form>
-    		</div>
-    
+    return (<div><h3>About</h3>
+            <ReactForm clazz='Task' id='12'></ReactForm>
+    		</div>)
+
   }
 })
 
@@ -91,27 +130,33 @@ const Message = React.createClass({
 })
 
 const routes = {
-		  path: '/',
-		  component: Grid,
-		  indexRoute: { component: About },
-		  childRoutes: [
-		    { path: 'about', component: About },
-		    { path: 'grid', component: Table },
-		    {
-		      path: 'inbox',
-		      component: Inbox,
-		      childRoutes: [{
-		        path: 'messages/:id',
-		        onEnter: ({ params }, replace) => replace(`/messages/${params.id}`)
-		      }]
-		    },
-		    {
-		      component: Inbox,
-		      childRoutes: [{
-		        path: 'messages/:id', component: Message
-		      }]
-		    }
-		  ]
-		};
+  path: '/',
+  component: Grid,
+  indexRoute: {
+    component: About
+  },
+  childRoutes: [{
+    path: 'about',
+    component: About
+  }, {
+    path: 'grid',
+    component: Table
+  }, {
+    path: 'inbox',
+    component: Inbox,
+    childRoutes: [{
+      path: 'messages/:id',
+      onEnter: ({
+        params
+      }, replace) => replace(`/messages/${params.id}`)
+    }]
+  }, {
+    component: Inbox,
+    childRoutes: [{
+      path: 'messages/:id',
+      component: Message
+    }]
+  }]
+};
 
 ReactDOM.render(<Router history={browserHistory} routes={routes} />, document.getElementById("content"))
